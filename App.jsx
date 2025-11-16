@@ -1,10 +1,43 @@
 // App.jsx
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import React, { useState, useEffect, useRef } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet, Animated } from 'react-native';
 import FlexExamples from './examples/FlexExamples';
 
 const App = () => {
   const [screen, setScreen] = useState('home'); // 'home' | 'flexExamples'
+  const [subtitleIndex, setSubtitleIndex] = useState(0);
+  const fadeAnim = useRef(new Animated.Value(1)).current;
+
+  const subtitles = [
+    'Master layouts and components with interactive visual examples',
+    'Learn Flexbox through hands-on demonstrations',
+    'Build beautiful UIs with confidence',
+    'Explore React Native concepts visually',
+  ];
+
+  useEffect(() => {
+    if (screen === 'home') {
+      const interval = setInterval(() => {
+        // Fade out
+        Animated.timing(fadeAnim, {
+          toValue: 0,
+          duration: 400,
+          useNativeDriver: true,
+        }).start(() => {
+          // Change text
+          setSubtitleIndex((prev) => (prev + 1) % subtitles.length);
+          // Fade in
+          Animated.timing(fadeAnim, {
+            toValue: 1,
+            duration: 400,
+            useNativeDriver: true,
+          }).start();
+        });
+      }, 2000);
+
+      return () => clearInterval(interval);
+    }
+  }, [screen, fadeAnim]);
 
   if (screen === 'flexExamples') {
     return (
@@ -21,10 +54,10 @@ const App = () => {
       <View style={styles.iconContainer}>
         <Text style={styles.icon}>⚡</Text>
       </View>
-      <Text style={styles.homeTitle}>React Native Examples</Text>
-      <Text style={styles.homeSubtitle}>
-        Interactive visual examples to master React Native components and layouts
-      </Text>
+      <Text style={styles.homeTitle}>Learn React Native</Text>
+      <Animated.Text style={[styles.homeSubtitle, { opacity: fadeAnim }]}>
+        {subtitles[subtitleIndex]}
+      </Animated.Text>
 
       <View style={styles.buttonGroup}>
         <TouchableOpacity

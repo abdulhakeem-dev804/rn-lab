@@ -1,4 +1,4 @@
-# React Native Examples
+# RNLab
 
 An interactive learning app showcasing React Native components and layouts through visual, hands-on examples.
 
@@ -39,7 +39,7 @@ This app provides interactive visual examples to help developers master React Na
 1. Clone the repository:
 ```bash
 git clone <your-repo-url>
-cd AllCompo
+cd RNLab
 ```
 
 2. Install dependencies:
@@ -69,7 +69,7 @@ npm start
 ## 📁 Project Structure
 
 ```
-AllCompo/
+RNLab/
 ├── App.jsx                 # Main app component with navigation
 ├── examples/
 │   ├── FlexExamples.jsx   # Flex layout examples
