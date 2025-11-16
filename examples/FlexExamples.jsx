@@ -198,6 +198,53 @@ const FlexExamples = () => {
             {JSON.stringify(currentExample.containerStyle, null, 2)}
           </Text>
         </View>
+
+        {/* Full Code Example */}
+        <View style={styles.fullCodeSection}>
+          <View style={styles.codeHeader}>
+            <Text style={styles.codeLabel}>Full Code Example:</Text>
+            <Text style={styles.copyHint}>Tap to select & copy</Text>
+          </View>
+          <Text style={styles.codeText} selectable={true}>
+            {`import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+
+const Example = () => {
+  return (
+    <View style={styles.container}>
+      <View style={styles.box}>
+        <Text>Box 1</Text>
+      </View>
+      <View style={styles.box}>
+        <Text>Box 2</Text>
+      </View>
+      <View style={styles.box}>
+        <Text>Box 3</Text>
+      </View>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    ${Object.entries(currentExample.containerStyle)
+      .map(([key, value]) => `${key}: '${value}'`)
+      .join(',\n    ')}
+  },
+  box: {
+    width: 80,
+    height: 80,
+    backgroundColor: '#4F46E5',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 8,
+  },
+});
+
+export default Example;`}
+          </Text>
+        </View>
       </ScrollView>
     </View>
   );
@@ -369,13 +416,30 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     padding: 16,
   },
+  fullCodeSection: {
+    backgroundColor: '#1A1A1A',
+    borderRadius: 12,
+    padding: 16,
+    marginTop: 16,
+    marginBottom: 20,
+  },
+  codeHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 8,
+  },
   codeLabel: {
     color: '#22C55E',
     fontSize: 10,
     fontWeight: '700',
-    marginBottom: 8,
     letterSpacing: 0.8,
     textTransform: 'uppercase',
+  },
+  copyHint: {
+    color: '#6B7280',
+    fontSize: 10,
+    fontStyle: 'italic',
   },
   codeText: {
     color: '#E5E5E5',
